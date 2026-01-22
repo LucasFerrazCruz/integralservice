@@ -2,8 +2,8 @@ package com.example.intergralservice.dto;
 
 import com.example.intergralservice.enums.TipoMovimentacaoEstoque;
 
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 
 public record EstoqueMovimentacaoRequestDTO(
     
@@ -14,7 +14,7 @@ public record EstoqueMovimentacaoRequestDTO(
     TipoMovimentacaoEstoque tipo,
 
     @NotNull(message = "Quantidade é obrigatória")
-    @Min(value = 1, message = "Quantidade deve ser maior que zero")
+    @Positive
     Integer quantidade,
 
     String observacao
