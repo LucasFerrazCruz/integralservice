@@ -2,8 +2,11 @@ package com.example.intergralservice.service;
 
 import org.springframework.stereotype.Service;
 
+import com.example.intergralservice.dto.EstoqueMovimentacaoRequestDTO;
+import com.example.intergralservice.dto.EstoqueMovimentacaoResponseDTO;
 import com.example.intergralservice.entity.EstoqueMovimentacao;
 import com.example.intergralservice.entity.Produto;
+import com.example.intergralservice.entity.Usuario;
 import com.example.intergralservice.repository.EstoqueMovimentacaoRepository;
 import com.example.intergralservice.repository.ProdutoRepository;
 
@@ -24,14 +27,29 @@ public class EstoqueServiceImpl implements EstoqueService {
     }
 
     @Override
-    public void movimentar(Long produtoId, Integer quantidade) {
-        Produto produto = produtoRepository.findById(produtoId)
+    public EstoqueMovimentacaoResponseDTO movimentar(EstoqueMovimentacaoRequestDTO dto, Usuario usuario) {
+
+        Produto produto = produtoRepository.findById(dto.produtoId())
                 .orElseThrow(() -> new IllegalArgumentException("Produto não encontrado"));
 
-        EstoqueMovimentacao movimentacao = new EstoqueMovimentacao();
-        movimentacao.setProduto(produto);
-        movimentacao.setQuantidade(quantidade);
+        EstoqueMovimentacao estoqueMovimentacao = EstoqueMovimentacao.builder()
+                .produto(produto)
+                .tipo(dto.tipo())
+                .quantidade(dto.quantidade())
+                .observacao(dto.observacao())
+                .usuario(usuario)
+                .build();
 
-        estoqueMovimentacaoRepository.save(movimentacao);
+        estoqueMovimentacaoRepository.save(estoqueMovimentacao);
+
+        return new EstoqueMovimentacaoResponseDTO(
+                estoqueMovimentacao.getId(),
+                produto.getId(),
+                produto.getNome(),
+                estoqueMovimentacao.getTipo(),
+                estoqueMovimentacao.getQuantidade(),
+                estoqueMovimentacao.getObservacao(),
+                estoqueMovimentacao.getDataMovimentacao()
+        );
     }
 }
