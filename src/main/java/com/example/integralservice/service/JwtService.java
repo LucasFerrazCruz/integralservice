@@ -21,7 +21,7 @@ public class JwtService {
     private final SecretKey secretKey;
     private final Long expiration;
 
-    public JwtService(@Value("${jwt.secret}") String secret, @Value("${jwt.expiration}") Long expiration) {
+    public JwtService(@Value("${spring.jwt.secret}") String secret, @Value("${spring.jwt.expiration}") Long expiration) {
         
         this.secretKey = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
         this.expiration = expiration;

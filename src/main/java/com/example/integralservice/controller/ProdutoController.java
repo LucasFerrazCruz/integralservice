@@ -3,6 +3,7 @@ package com.example.integralservice.controller;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -38,6 +39,7 @@ public class ProdutoController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
+    @PreAuthorize("hasRole('ADMIN')")
     public ProdutoResponseDTO criar(@RequestBody @Valid ProdutoRequestDTO dto) {
 
         Categoria categoria = entityManager.getReference(Categoria.class, dto.categoriaId());
@@ -62,6 +64,7 @@ public class ProdutoController {
     }
 
     @GetMapping
+    @PreAuthorize("hasAnyRole('ADMIN', 'CLIENTE')")
     public List<ProdutoResponseDTO> listar() {
         return produtoService.listarProdutosAtivos()
                 .stream()
