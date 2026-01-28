@@ -49,7 +49,7 @@ public class UsuarioDetails implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return usuario.getAtivo();
+        return Boolean.TRUE.equals(usuario.getAtivo());
     }
 
     public Usuario getUsuario() {

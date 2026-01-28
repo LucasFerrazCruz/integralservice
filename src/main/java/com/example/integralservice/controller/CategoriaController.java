@@ -2,6 +2,7 @@ package com.example.integralservice.controller;
 
 import java.util.List;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,6 +25,7 @@ public class CategoriaController {
     }
 
     @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public CategoriaResponseDTO criar(@RequestBody CategoriaRequestDTO dto) {
         Categoria categoria = new Categoria();
         categoria.setNome(dto.nome());
@@ -34,6 +36,7 @@ public class CategoriaController {
     }
 
     @GetMapping
+    @PreAuthorize("hasAnyRole('ADMIN', 'CLIENTE')")
     public List<CategoriaResponseDTO> listar() {
         return categoriaService.listarTodas()
                 .stream()

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.integralservice.config.UsuarioDetails;
 import com.example.integralservice.dto.LoginRequestDTO;
 import com.example.integralservice.dto.LoginResponseDTO;
 import com.example.integralservice.dto.UsuarioLogadoResponseDTO;
@@ -36,7 +37,8 @@ public class AuthController {
 
         Authentication auth = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(dto.email(), dto.senha()));
 
-        Usuario usuario = (Usuario) auth.getPrincipal();
+        UsuarioDetails usuarioDetails = (UsuarioDetails) auth.getPrincipal();
+        Usuario usuario = usuarioDetails.getUsuario();
 
         String token = jwtService.gerarToken(usuario);
 
