@@ -9,4 +9,6 @@ public interface CategoriaService {
     Categoria criar (Categoria categoria);
 
     List<Categoria> listarTodas();
+
+    List<Categoria> buscarCategoriaPorId(Long id);
 }

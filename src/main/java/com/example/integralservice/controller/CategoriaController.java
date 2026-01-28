@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,5 +43,12 @@ public class CategoriaController {
                 .stream()
                 .map(c -> new CategoriaResponseDTO(c.getId(), c.getNome()))
                 .toList();
+    }
+
+    @GetMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'CLIENTE')")
+    public CategoriaResponseDTO buscarPorId(@PathVariable Long id) {
+        Categoria categoria = categoriaService.buscarCategoriaPorId(id);
+        return new CategoriaResponseDTO(categoria.getId(), categoria.getNome());
     }
 }

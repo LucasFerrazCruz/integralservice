@@ -8,11 +8,11 @@ import com.example.integralservice.entity.Categoria;
 import com.example.integralservice.repository.CategoriaRepository;
 
 @Service
-public class CategoriaServiceImpl implements CategoriaService {
+public class CategoriaServiceImp implements CategoriaService {
 
     private final CategoriaRepository categoriaRepository;
 
-    public CategoriaServiceImpl(CategoriaRepository categoriaRepository) {
+    public CategoriaServiceImp(CategoriaRepository categoriaRepository) {
         this.categoriaRepository = categoriaRepository;
     }
 
@@ -27,5 +27,10 @@ public class CategoriaServiceImpl implements CategoriaService {
     @Override
     public List<Categoria> listarTodas() {
         return categoriaRepository.findAll();
+    }
+
+    @Override
+    public List<Categoria> buscarCategoriaPorId(Long id) {
+        return CategoriaRepository.findById(id);
     }
 }
