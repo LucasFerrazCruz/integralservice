@@ -27,7 +27,7 @@ public class EstoqueController {
     }
 
     @PostMapping("/movimentacoes")
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('ADMIN')")
     @ResponseStatus(HttpStatus.CREATED)
     public void movimentar(@RequestBody @Valid EstoqueMovimentacaoRequestDTO dto, Authentication auth) {
         
@@ -36,7 +36,7 @@ public class EstoqueController {
     }
 
     @GetMapping("/saldo/{produtoId}")
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('ADMIN', 'CLIENTE')")
     public Integer consultarSaldo(@PathVariable Long produtoId) {
         return estoqueService.consultarSaldo(produtoId);
     }

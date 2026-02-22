@@ -46,11 +46,7 @@ public class EstoqueServiceImpl implements EstoqueService {
         EstoqueMovimentacao estoqueMovimentacao = EstoqueMovimentacao.builder()
                 .produto(produto)
                 .tipo(dto.tipo())
-                .quantidade(
-                    dto.tipo() == TipoMovimentacaoEstoque.SAIDA
-                        ? -dto.quantidade()
-                        : dto.quantidade()
-                )
+                .quantidade(dto.quantidade())
                 .observacao(dto.observacao())
                 .usuario(usuario)
                 .build();

@@ -2,8 +2,11 @@ package com.example.integralservice.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.example.integralservice.dto.ProdutoResponseDTO;
 import com.example.integralservice.entity.Produto;
 import com.example.integralservice.repository.ProdutoRepository;
 
@@ -31,5 +34,15 @@ public class ProdutoServiceImpl implements ProdutoService {
     public Produto buscarPorId(Long id) {
         return produtoRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Produto não encontrado"));
+    }
+
+    @Override
+    public Page<ProdutoResponseDTO> listarComSaldoPorCategoria(Long categoriaId, Pageable pageable) {
+        return produtoRepository.buscarProdutosComSaldoPorCategoria(categoriaId, pageable);
+    }
+
+    @Override
+    public Page<ProdutoResponseDTO> listarProdutosComSaldo(Pageable pageable) {
+        return produtoRepository.buscarProdutosComSaldo(pageable);
     }
 }

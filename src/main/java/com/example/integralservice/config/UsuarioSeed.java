@@ -32,8 +32,8 @@ public class UsuarioSeed implements CommandLineRunner {
 
             Usuario admin = new Usuario();
             admin.setNome("Administrador");
-            admin.setEmail(adminEmail);
-            admin.setSenha(passwordEncoder.encode(adminPassword));
+            admin.setEmail(adminEmail.trim());
+            admin.setSenha(passwordEncoder.encode(adminPassword.trim()));
             admin.setTipo(TipoUsuario.ADMIN);
 
             usuarioRepository.save(admin);

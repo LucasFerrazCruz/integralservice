@@ -6,5 +6,5 @@ public record ProdutoResponseDTO(
     String codigo,
     String descricao,
     String unidade,
-    Integer quantidadeAtual
+    Long quantidadeAtual
 ) {}

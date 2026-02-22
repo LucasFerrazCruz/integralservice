@@ -30,7 +30,8 @@ public class CategoriaServiceImp implements CategoriaService {
     }
 
     @Override
-    public List<Categoria> buscarCategoriaPorId(Long id) {
-        return CategoriaRepository.findById(id);
+    public Categoria buscarCategoriaPorId(Long id) {
+        return categoriaRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Categoria não encontrada"));
     }
 }
